@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- Webpage Title -->
+    <title>등산의 모든 것</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
+    <script type="text/javascript">
+        function findMountain() {
+            // 1. 산 이름을 가져옵니다.
+            let name = $('#mtName').val()
+            // 2. 산 이름을 입력하지 않았을 경우 alert를 띄웁니다.
+            if (name === '') {
+                alert('산 이름을 입력해주세요')
+                return
+            }
+            // /search 페이지로 이동합니다.
+            location.href = `/search?name=${name}`
+        }
+    </script>
+    <style type="text/css">
+        * {
+            font-family: "Do Hyeon", sans-serif;
+        }
+
+        h1,
+        h5 {
+            display: inline;
+        }
+
+        .info {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .find {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container" style="max-width: 600px;">
+    <img src="https://health.chosun.com/site/data/img_dir/2019/04/30/2019043001641_0.jpg"
+         class="img-fluid" alt="Responsive image">
+    <div class="info">
+        <h1>등산의 모든 것</h1>
+        <p>가고 싶은 산의 기본 정보와 주변 맛집 등의 정보를 알려드려요.</p>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">산 이름</span>
+            </div>
+            <input type="text" class="form-control" id="mtName">
+        </div>
+        <div class="find">
+            <button onclick="findMountain()" type="button" class="btn btn-primary">검색</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

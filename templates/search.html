@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Webpage Title -->
+    <title>등산의 모든 것</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
+    <script>
+        $(document).ready(function () {
+            let name = "{{ name }}"
+            findMountain(name)
+        })
+
+        function findMountain(name) {
+            $.ajax({
+                    type: "GET",
+                    url: "/find_mt",
+                    data: {
+                        'name': name
+                    },
+                    success: function (response) {
+                        if (response["result"] === "success") {
+                            console.log(response['data']);
+                            // let rows = response["data"];
+                            // for (let i = 0; i < rows.length; i++) {
+                            //     let row = rows[i]
+                            //     let name = row["name"]
+                            //     let num = row["num"]
+                            //     let address = row["address"]
+                            //     let phone = row["phone"]
+                            //     let temp = `<tr>
+                            //                 <td>${name}</td>
+                            //                 <td>${num}</td>
+                            //                 <td>${address}</td>
+                            //                 <td>${phone}</td>
+                            //             </tr>`
+                            //     $('#customer-info').append(temp)
+                            // }
+                        }
+                    }
+                }
+            )
+        }
+
+
+    </script>
+</head>
+<body>
+search result page 입니다.
+{{ name }}
+</body>
+</html>
+
