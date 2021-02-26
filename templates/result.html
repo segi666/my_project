@@ -23,13 +23,7 @@
             findMountain(name)
         })
 
-        let name = "{{ name }}"
-        let code = "{{ code }}"
-        function selectMountain() {
-            location.href = `/result?name=${name}`
-        }
-
-        function findMountain(name) {
+        function resultMountain(code) {
             $.ajax({
                     type: "GET",
                     url: "/find_mt",
@@ -38,33 +32,17 @@
                     },
                     success: function (response) {
                         if (response["result"] === "success") {
-                            let rows = response["data"];
-                            for (let i = 0; i < rows.length; i++) {
-                                let row = rows[i]
-                                let img = row["mntnattchimageseq"]
-                                let name = row["mntnnm"]
-                                let location = row["mntninfopoflc"]
-                                let code = row["mntnid"]
-                                let temp = `<div class="card" style="width: 18rem;">
-                                                <img src="${img}" class="card-img-top" alt="mountainImage">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">${name} ${code}</h5>
-                                                    <p class="card-text">${location}</p>
-                                                    <button onclick="selectMountain()" type="button" class="btn btn-primary">선택</button>
-                                                </div>
-                                            </div>`
-                                $('#cards-box').append(temp)
-                            }
+                            let result = response["data"];
+                            let name = result["mntnnm"]
                         }
                     }
                 }
             )
         }
-
     </script>
 </head>
 <body>
-search page 입니다.
+result page 입니다.
 {{ name }}
 <div id="cards-box" class="card-columns">
     <div class="card" style="width: 18rem;">
@@ -73,4 +51,3 @@ search page 입니다.
 
 </body>
 </html>
-

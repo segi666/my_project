@@ -26,9 +26,23 @@
                 alert('산 이름을 입력해주세요')
                 return
             }
-            // /search 페이지로 이동합니다.
-            location.href = `/search?name=${name}`
+            $.ajax({
+                type: "POST",
+                url: "/find_mt",
+                data: {
+                    'name': name
+                },
+                success: function (response) {
+                    if (response["result"] === "success") {
+                        let rows = response["data"];
+                        // /search 페이지로 이동합니다.
+                        location.href = `/search?name=${name}`
+                    }
+                }
+            })
         }
+
+
     </script>
     <style type="text/css">
         * {
