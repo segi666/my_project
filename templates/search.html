@@ -16,61 +16,69 @@
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"></script>
     <!-- 구글폰트 -->
-    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
-    <script>
-        $(document).ready(function () {
-            let name = "{{ name }}"
-            findMountain(name)
-        })
-
-        let name = "{{ name }}"
-        let code = "{{ code }}"
-        function selectMountain() {
-            location.href = `/result?name=${name}`
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
+    <style type="text/css">
+        * {
+            font-family: 'Poor Story', cursive;
         }
 
-        function findMountain(name) {
-            $.ajax({
-                    type: "GET",
-                    url: "/find_mt",
-                    data: {
-                        'name': name
-                    },
-                    success: function (response) {
-                        if (response["result"] === "success") {
-                            let rows = response["data"];
-                            for (let i = 0; i < rows.length; i++) {
-                                let row = rows[i]
-                                let img = row["mntnattchimageseq"]
-                                let name = row["mntnnm"]
-                                let location = row["mntninfopoflc"]
-                                let code = row["mntnid"]
-                                let temp = `<div class="card" style="width: 18rem;">
-                                                <img src="${img}" class="card-img-top" alt="mountainImage">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">${name} ${code}</h5>
-                                                    <p class="card-text">${location}</p>
-                                                    <button onclick="selectMountain()" type="button" class="btn btn-primary">선택</button>
-                                                </div>
-                                            </div>`
-                                $('#cards-box').append(temp)
-                            }
-                        }
-                    }
-                }
-            )
+        #cards-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
-
-    </script>
+    </style>
 </head>
 <body>
-search page 입니다.
-{{ name }}
 <div id="cards-box" class="card-columns">
     <div class="card" style="width: 18rem;">
     </div>
 </div>
-
 </body>
+<script>
+    $(document).ready(function () {
+        let name = "{{ name }}"
+        findMountain(name)
+    })
+
+    function selectMountain(name, code) {
+        location.href = `/result?name=${name}&code=${code}`
+    }
+
+    function findMountain(name) {
+        $.ajax({
+                type: "GET",
+                url: "/find_mt",
+                data: {
+                    'name': name
+                },
+                success: function (response) {
+                    if (response["result"] === "success") {
+                        let rows = response["data"];
+                        for (let i = 0; i < rows.length; i++) {
+                            let row = rows[i]
+                            let img = row["mntnattchimageseq"]
+                            let name = row["mntnnm"]
+                            let location = row["mntninfopoflc"]
+                            let code = row["mntnid"]
+                            let temp = `<div class="card" style="width: 18rem;">
+                                                <img src="${img}" class="card-img-top" alt="mountainImage">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${name}</h5>
+                                                    <p class="card-text">${location}</p>
+                                                    <button onclick="selectMountain('${name}', '${code}')" type="button" class="btn btn-primary">선택</button>
+                                                </div>
+                                            </div>`
+                            $('#cards-box').append(temp)
+                        }
+                    }
+                }
+            }
+        )
+    }
+</script>
+
 </html>
 

@@ -16,38 +16,114 @@
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"></script>
     <!-- 구글폰트 -->
-    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
-    <script>
-        $(document).ready(function () {
-            let name = "{{ name }}"
-            findMountain(name)
-        })
-
-        function resultMountain(code) {
-            $.ajax({
-                    type: "GET",
-                    url: "/find_mt",
-                    data: {
-                        'name': name
-                    },
-                    success: function (response) {
-                        if (response["result"] === "success") {
-                            let result = response["data"];
-                            let name = result["mntnnm"]
-                        }
-                    }
-                }
-            )
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
+    <style type="text/css">
+        * {
+            font-family: 'Poor Story', cursive;
         }
-    </script>
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .img-fluid {
+            width: 100%;
+            height: auto;
+        }
+
+        h6 {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-result page 입니다.
-{{ name }}
-<div id="cards-box" class="card-columns">
-    <div class="card" style="width: 18rem;">
-    </div>
+
+<div id="container" style="max-width: 600px;">
 </div>
 
 </body>
+
+<script>
+    $(document).ready(function () {
+        let name = "{{ name }}"
+        let code = "{{ code }}"
+        resultMountain(name, code)
+    })
+
+    function resultMountain(name, code) {
+        $.ajax({
+                type: "GET",
+                url: "/find_mt_one",
+                data: {
+                    'name': name,
+                    'code': code,
+                },
+                success: function (response) {
+                    if (response["result"] === "success") {
+                        let row = response["data"];
+                        let img = row["mntnattchimageseq"]
+                        let title = row["mntnsbttlinfo"]
+                        let location = row["mntninfopoflc"]
+                        let height = row["mntninfohght"]
+                        let info = row["mntninfodscrt"]
+                        let course = row["crcmrsghtnginfoetcdscrt"]
+                        let sightseeing = row["crcmrsghtnginfodscrt"]
+                        let transportation = row["pbtrninfodscrt"]
+                        let temp = `<div class="info">
+                                        <img src="${img}"
+                                             class="img-fluid" alt="산 이미지">
+                                        <h1>{{ name }}</h1>
+                                        <p>"${title}"</p>
+                                    </div>
+                                        <table class="table">
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <h6>소재지</h6>
+                                                </td>
+                                                <td><span class="location">${location}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h6>높이</h6>
+                                                </td>
+                                                <td><span class="height">${height}m</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h6>상세정보</h6>
+                                                </td>
+                                                <td><span class="info">${info}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h6>추천코스</h6>
+                                                </td>
+                                                <td><span class="course">${course}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h6>주변관광정보</h6>
+                                                </td>
+                                                <td><span class="sightseeing">${sightseeing}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h6>대중교통</h6>
+                                                </td>
+                                                <td><span class="transportation">${transportation}</span></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>`
+                        $('#container').append(temp)
+                    }
+                }
+            }
+        )
+    }
+</script>
 </html>

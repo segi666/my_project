@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" crossorigin="anonymous">
     <!-- Webpage Title -->
     <title>등산의 모든 것</title>
     <!-- Required meta tags -->
@@ -16,37 +17,11 @@
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"></script>
     <!-- 구글폰트 -->
-    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
-    <script type="text/javascript">
-        function findMountain() {
-            // 1. 산 이름을 가져옵니다.
-            let name = $('#mtName').val()
-            // 2. 산 이름을 입력하지 않았을 경우 alert를 띄웁니다.
-            if (name === '') {
-                alert('산 이름을 입력해주세요')
-                return
-            }
-            $.ajax({
-                type: "POST",
-                url: "/find_mt",
-                data: {
-                    'name': name
-                },
-                success: function (response) {
-                    if (response["result"] === "success") {
-                        let rows = response["data"];
-                        // /search 페이지로 이동합니다.
-                        location.href = `/search?name=${name}`
-                    }
-                }
-            })
-        }
-
-
-    </script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
     <style type="text/css">
         * {
-            font-family: "Do Hyeon", sans-serif;
+            font-family: 'Poor Story', cursive;
         }
 
         h1,
@@ -62,12 +37,80 @@
         .find {
             text-align: center;
         }
+
+        img {
+            margin-top: 50px;
+            padding-top: 12px;
+            width: 100%;
+            height: auto;
+            vertical-align: middle;
+        }
+
+        .mobile-menu {
+            display: block;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 500;
+            width: 30px;
+            height: 30px;
+            padding: 3px;
+            background-color: #f0f0f0;
+            border: 0;
+        }
+
+        .mobile-menu i {
+            font-size: 1.5em;
+        }
+
+        .menuwrap {
+            position: fixed;
+            top: 0;
+            left: -202px; /* 너비 300px 인 사이드바를 왼쪽으로 300px 이동시켜 화면에 보이지 않게 함 */
+            z-index: 400;
+            overflow: auto;
+            width: 200px; /* 너비 */
+            height: 100%;
+            padding: 80px 5px;
+            box-sizing: border-box;
+            transition: left .3s ease-in-out; /* 0.3초 동안 이동 애니메이션 */
+            background-color: #f0f0f0;
+        }
+
+        .menuwrap.on {
+            left: 0;
+        }
+
+        #dimmed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 300;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
     </style>
+
 </head>
 <body>
+<button type="button" class="mobile-menu"><i class="fas fa-bars"></i></button>
+
+<div class="menuwrap">
+    <nav id="menu">
+        <!-- "메뉴목록 표시" -->
+        <ul class="category_list">
+            <li class=""><a class="link_sub_item" href="/">산 정보 검색</a></li>
+            <li class=""><a class="link_sub_item" href="/category/2">코스 찾기</a></li>
+            <li class=""><a class="link_sub_item" href="/category/3">등린이 꿀팁 모음</a></li>
+        </ul>
+    </nav>
+</div>
+
 <div class="container" style="max-width: 600px;">
     <img src="https://health.chosun.com/site/data/img_dir/2019/04/30/2019043001641_0.jpg"
-         class="img-fluid" alt="Responsive image">
+         class="img-fluid" alt="등산의 모든 것 메인페이지">
     <div class="info">
         <h1>등산의 모든 것</h1>
         <p>가고 싶은 산의 기본 정보와 주변 맛집 등의 정보를 알려드려요.</p>
@@ -75,7 +118,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">산 이름</span>
             </div>
-            <input type="text" class="form-control" id="mtName">
+            <input type="text" class="form-control" id="mtName" placeholder="산 이름을 입력해주세요.">
         </div>
         <div class="find">
             <button onclick="findMountain()" type="button" class="btn btn-primary">검색</button>
@@ -83,4 +126,78 @@
     </div>
 </div>
 </body>
+<script type="text/javascript">
+
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelector(".mobile-menu").addEventListener("click", function (e) {
+            if (document.querySelector('.menuwrap').classList.contains('on')) {
+                //메뉴닫힘
+                document.querySelector('.menuwrap').classList.remove('on');
+                document.querySelector('.mobile-menu i').classList.remove('fa-times')
+                document.querySelector('.mobile-menu i').classList.add('fa-bars');
+
+                //페이지 스크롤 락 해제
+                document.querySelector('#dimmed').remove();
+            } else {
+                //메뉴펼침
+                document.querySelector('.menuwrap').classList.add('on');
+                document.querySelector('.mobile-menu i').classList.remove('fa-bars');
+                document.querySelector('.mobile-menu i').classList.add('fa-times');
+
+                //페이지 스크롤 락 레이어 추가
+                let div = document.createElement('div');
+                div.id = 'dimmed';
+                document.body.append(div);
+
+                //페이지 스크롤 락  모바일 이벤트 차단
+                document.querySelector('#dimmed').addEventListener('scroll touchmove touchend mousewheel', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                });
+
+                //페이지 스크롤 락 레이어 클릭 메뉴 닫기
+                document.querySelector('#dimmed').addEventListener('click', function (e) {
+                    document.querySelector(".mobile-menu").click();
+                });
+
+            }
+        });
+    });
+
+
+    function findMountain() {
+        // 1. 산 이름을 가져옵니다.
+        let name = $('#mtName').val()
+        // 2. 산 이름을 입력하지 않았을 경우 alert를 띄웁니다.
+        if (name === '') {
+            alert('산 이름을 입력해주세요')
+            return
+        }
+        $.ajax({
+            type: "GET", // 산을 조회하는 요청이기에 POST -> GET으로 변경
+            url: "/find_mt",
+            data: {
+                'name': name
+            },
+            success: function (response) {
+                if (response["result"] === "success") {
+                    let rows = response["data"];
+                    if (rows.length > 1) {
+                        // 검색 결과가 여러개인 경우 /search 페이지로 이동합니다.
+                        location.href = `/search?name=${name}`
+                    } else if (rows.length === 1) {
+                        // 검색 결과가 1개인 경우 /result 페이지로 이동합니다.
+                        let mountain = rows[0]
+                        let code = mountain['mntnid']
+                        location.href = `/result?name=${name}&code=${code}`
+                    } else {
+                        // 해당하는 산이 없는 경우
+                        alert('검색 결과가 없습니다')
+                    }
+                }
+            }
+        })
+    }
+</script>
 </html>
