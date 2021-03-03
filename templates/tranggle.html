@@ -1,18 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <!-- Webpage Title -->
+    <title>등산의 모든 것</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
+
+
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+    <!-- 구글폰트 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
+    <style type="text/css">
+        * {
+            font-family: 'Poor Story', cursive;
+        }
+
+        h1,
+        h5 {
+            display: inline;
+        }
+
+        .info {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .find {
+            text-align: center;
+        }
+
+        img {
+            margin-top: 50px;
+            padding-top: 12px;
+            width: 100%;
+            height: auto;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
-<div id="getHtml"></div>
+<div class="container" style="max-width: 600px;">
+    <img src="https://images.fineartamerica.com/images-medium-large-5/a-hiker-reading-a-map-rob-hammer.jpg"
+         class="img-fluid" alt="등산로 찾기">
+    <div class="info">
+        <h1>등산의 모든 것</h1>
+        <p>다른 사람들이 올려 놓은 등산로 정보를 찾아서 참고해봐요!</p>
 
-<div id="requestHtml" style="display:none"><%=getHTML("https://www.tranggle.com/course")%></div>
-<script type="text/javascript">
-  $(function(){
-      var _contents = $('#requestHtml').find('body table td').html();
-      $('#getHtml').html(_contents);
-  });
- </script>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">등산로</span>
+            </div>
+            <input type="text" class="form-control" id="mtName" placeholder="찾고 싶은 등산로를 입력해주세요. ex. 북한산 비봉 문수봉">
+        </div>
+        <div class="find">
+            <button onclick="findRoute()" type="button" class="btn btn-primary">찾기</button>
+        </div>
+    </div>
+</div>
 </body>
+<script>
+    $(document).ready(function () {
+
+        function findRoute() {
+            let name = $('#mtName').val()
+            // 2. 산 이름을 입력하지 않았을 경우 alert를 띄웁니다.
+            if (name === '') {
+                alert('산 이름을 입력해주세요')
+                return
+            }
+            $.ajax({
+                type: 'POST',
+                url: 'https://www.tranggle.com/course/more',
+                data: {
+                    'year': 2021,
+                    'search_key': 'track_title',
+                    'search_val': '관악산',
+                    'sort': 'log_no',
+                    'page': 3,
+                },
+                success: function (res) {
+                    console.log(JSON.parse(res))
+
+                    if (res["result"] === "success") {
+                        let rows = response["data"];
+                        for (let i = 0; i < rows.length; i++) {
+                            let row = rows[i]
+                            let img = row["mntnattchimageseq"]
+                            let name = row["mntnnm"]
+                            let location = row["mntninfopoflc"]
+                            let code = row["mntnid"]
+                            let temp = `<div class="card" style="width: 18rem;">
+                                                <img src="${img}" class="card-img-top" alt="mountainImage">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${name}</h5>
+                                                    <p class="card-text">${location}</p>
+                                                    <button onclick="selectMountain('${name}', '${code}')" type="button" class="btn btn-primary">선택</button>
+                                                </div>
+                                            </div>`
+                            $('#cards-box').append(temp)
+                        }
+                    }
+                }
+            })
+        }
+
+
+</script>
+
 </html>
