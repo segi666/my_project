@@ -27,6 +27,10 @@ def result():
     code_receive = request.args.get('code')
     return render_template('result.html', name=name_receive, code=code_receive)
 
+@app.route('/course')
+def course():  # 함수명 수정 - 이름만 보고 접속되는 페이지를 확인할 수 있게!
+    return render_template('tranggle.html')
+
 # 산 name으로 산 정보 검색
 @app.route('/find_mt', methods=['GET'])
 def find_mt():

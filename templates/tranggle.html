@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- 슬라이드 메뉴-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" crossorigin="anonymous">
     <!-- Webpage Title -->
     <title>등산의 모든 것</title>
     <!-- Required meta tags -->
@@ -15,14 +17,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"></script>
-
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
     <!-- Select2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
-
-
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-
     <!-- 구글폰트 -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
@@ -52,75 +53,274 @@
             height: auto;
             vertical-align: middle;
         }
+
+        .result {
+            margin-top: 25px;
+        }
+
+        .table {
+            table-layout: fixed;
+            text-align: center;
+            width: 100%
+        }
+
+        td {
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        th, td {
+            border-bottom: 1px slategray;
+            padding: 10px;
+        }
+
+        .mobile-menu {
+            display: block;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 500;
+            width: 30px;
+            height: 30px;
+            padding: 3px;
+            background-color: #f0f0f0;
+            border: 0;
+        }
+
+        .mobile-menu i {
+            font-size: 1.5em;
+        }
+
+        .menuwrap {
+            position: fixed;
+            top: 0;
+            left: -202px; /* 너비 300px 인 사이드바를 왼쪽으로 300px 이동시켜 화면에 보이지 않게 함 */
+            z-index: 400;
+            overflow: auto;
+            width: 200px; /* 너비 */
+            height: 100%;
+            padding: 80px 5px;
+            box-sizing: border-box;
+            transition: left .3s ease-in-out; /* 0.3초 동안 이동 애니메이션 */
+            background-color: #f0f0f0;
+        }
+
+        .menuwrap.on {
+            left: 0;
+        }
+
+        #dimmed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 300;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
     </style>
 </head>
 <body>
+
+<!--<슬라이드 메뉴>-->
+<button type="button" class="mobile-menu"><i class="fas fa-bars"></i></button>
+
+<div class="menuwrap">
+    <nav id="menu">
+        <!-- "메뉴목록 표시" -->
+        <ul class="category_list">
+            <li class=""><a class="link_sub_item" href="/">산 정보 검색</a></li>
+            <li class=""><a class="link_sub_item" href="/course">코스 찾기</a></li>
+            <li class=""><a class="link_sub_item" href="/category/3">등린이 꿀팁 모음</a></li>
+        </ul>
+    </nav>
+</div>
+
 <div class="container" style="max-width: 600px;">
     <img src="https://images.fineartamerica.com/images-medium-large-5/a-hiker-reading-a-map-rob-hammer.jpg"
          class="img-fluid" alt="등산로 찾기">
     <div class="info">
         <h1>등산의 모든 것</h1>
-        <p>다른 사람들이 올려 놓은 등산로 정보를 찾아서 참고해봐요!</p>
-
+        <p>다른 사람들이 다녀온 등산로 정보를 찾아봐요!</p>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text">등산로</span>
+                <label class="input-group-text">검색조건</label>
             </div>
-            <input type="text" class="form-control" id="mtName" placeholder="찾고 싶은 등산로를 입력해주세요. ex. 북한산 비봉 문수봉">
+            <select id="year" class="custom-select">
+                <option selected>2021</option>
+                <option>2020</option>
+                <option>2019</option>
+                <option>2018</option>
+                <option>2017</option>
+                <option>2016</option>
+                <option>2015</option>
+                <option>2014</option>
+                <option>2013</option>
+                <option>2012</option>
+                <option>2011</option>
+            </select>
+            <select id="category" class="custom-select">
+                <option selected value="">전체</option>
+                <option value="WALKING">걷기</option>
+                <option value="HIKING">등산</option>
+                <option value="ETC">기타</option>
+            </select>
+            <select id="sort" class="custom-select">
+                <option selected value="log_no">최신순</option>
+                <option value="log_download_count">인기순</option>
+                <option value="log_hit">조회순</option>
+                <option value="log_distance">거리순</option>
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">코스명</span>
+            </div>
+            <input type="text" class="form-control" id="mtName" placeholder="찾고 싶은 코스명을 입력해주세요.">
         </div>
         <div class="find">
-            <button onclick="findRoute()" type="button" class="btn btn-primary">찾기</button>
+            <button onclick="findCourse()" type="button" class="btn btn-primary">찾기</button>
+        </div>
+        <div class="result">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th width="57%" scope="col">트랙명</th>
+                    <th width="20%" scope="col">거리</th>
+                    <th width="23%" scope="col">소요시간</th>
+                </tr>
+                </thead>
+
+                <tbody class="course_info"></tbody>
+            </table>
         </div>
     </div>
 </div>
 </body>
-<script>
-    $(document).ready(function () {
+<script type="text/javascript">
 
-        function findRoute() {
-            let name = $('#mtName').val()
-            // 2. 산 이름을 입력하지 않았을 경우 alert를 띄웁니다.
-            if (name === '') {
-                alert('산 이름을 입력해주세요')
-                return
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelector(".mobile-menu").addEventListener("click", function (e) {
+            if (document.querySelector('.menuwrap').classList.contains('on')) {
+                //메뉴닫힘
+                document.querySelector('.menuwrap').classList.remove('on');
+                document.querySelector('.mobile-menu i').classList.remove('fa-times')
+                document.querySelector('.mobile-menu i').classList.add('fa-bars');
+
+                //페이지 스크롤 락 해제
+                document.querySelector('#dimmed').remove();
+            } else {
+                //메뉴펼침
+                document.querySelector('.menuwrap').classList.add('on');
+                document.querySelector('.mobile-menu i').classList.remove('fa-bars');
+                document.querySelector('.mobile-menu i').classList.add('fa-times');
+
+                //페이지 스크롤 락 레이어 추가
+                let div = document.createElement('div');
+                div.id = 'dimmed';
+                document.body.append(div);
+
+                //페이지 스크롤 락  모바일 이벤트 차단
+                document.querySelector('#dimmed').addEventListener('scroll touchmove touchend mousewheel', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                });
+
+                //페이지 스크롤 락 레이어 클릭 메뉴 닫기
+                document.querySelector('#dimmed').addEventListener('click', function (e) {
+                    document.querySelector(".mobile-menu").click();
+                });
+
             }
-            $.ajax({
-                type: 'POST',
-                url: 'https://www.tranggle.com/course/more',
-                data: {
-                    'year': 2021,
-                    'search_key': 'track_title',
-                    'search_val': '관악산',
-                    'sort': 'log_no',
-                    'page': 3,
-                },
-                success: function (res) {
-                    console.log(JSON.parse(res))
+        });
+    });
 
-                    if (res["result"] === "success") {
-                        let rows = response["data"];
-                        for (let i = 0; i < rows.length; i++) {
-                            let row = rows[i]
-                            let img = row["mntnattchimageseq"]
-                            let name = row["mntnnm"]
-                            let location = row["mntninfopoflc"]
-                            let code = row["mntnid"]
-                            let temp = `<div class="card" style="width: 18rem;">
-                                                <img src="${img}" class="card-img-top" alt="mountainImage">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">${name}</h5>
-                                                    <p class="card-text">${location}</p>
-                                                    <button onclick="selectMountain('${name}', '${code}')" type="button" class="btn btn-primary">선택</button>
-                                                </div>
-                                            </div>`
-                            $('#cards-box').append(temp)
-                        }
-                    }
-                }
-            })
+    function findCourse() {
+        // 1. 사용자가 입력한 검색 정보를 불러옵니다.
+        let name = $('#mtName').val()
+        let year = $('#year').val()
+        let category = $('#category').val()
+        let sort = $('#sort').val()
+        // 2. 코스명을 입력하지 않았을 경우 alert를 띄웁니다.
+        if (name === '') {
+            alert('코스명을 입력해주세요')
+            return
         }
-
-
+        $.ajax({
+            type: 'POST',
+            url: 'https://www.tranggle.com/course/more',
+            data: {
+                'year': year,
+                'search_key': 'track_title',
+                'category': category,
+                'search_val': name,
+                'sort': sort,
+                'page': 1,
+            },
+            success: function (res) {
+                let data = JSON.parse(res)
+                console.log(data)
+                let success = data['code'] === '00'
+                if (!success) {
+                    alert('데이터가 없습니다.')
+                    return
+                }
+                let rows = data['content']
+                for (let i = 0; i < rows.length; i++) {
+                    let row = rows[i]
+                    let trackName = row['track_name']
+                    // let trackName2 = $(trackName).split('_')
+                    let distance = row['log_distance']
+                    let time = row['log_total_time'] * 60
+                    let hours = Math.floor(time / 3600)
+                    let minutes = Math.floor((time - (hours * 3600)) / 60);
+                    let seconds = Math.ceil(time - (hours * 3600) - (minutes * 60))
+                    if (hours < 10) {
+                        hours = "0" + hours;
+                    }
+                    if (minutes < 10) {
+                        minutes = "0" + minutes;
+                    }
+                    if (seconds < 10) {
+                        seconds = "0" + seconds;
+                    }
+                    let totalTime = hours + ':' + minutes + ':' + seconds
+                    let trackKey = row['year'] + row['track_key']
+                    let temp = ` <tr>
+                                     <th width="57%" scope="row">
+                                         <a href="https://www.tranggle.com/trackeditor/use_track_view?track_key=${trackKey}" class="course">
+                                            <div>${trackName}
+                                            </div>
+                                         </a>
+                                     </th>
+                                     <td width="20%">${distance}km</td>
+                                     <td width="23%">${totalTime}</td>
+                                 </tr>`
+                    $('.result').append(temp)
+                }
+            }
+        })
+    }
 </script>
+<style>
 
+    .table {
+        table-layout: fixed;
+        text-align: center;
+        width: 100%
+    }
+
+    td {
+        white-space: pre-wrap;
+        word-break: break-all;
+    }
+
+    th, td {
+        border-bottom: 1px solid lightgray;
+        padding: 10px;
+        text-align: center;
+    }
+</style>
 </html>
