@@ -35,16 +35,18 @@
             margin-bottom: 20px;
         }
 
-        .find {
-            text-align: center;
-        }
 
-        img {
+        .img-fluid {
             margin-top: 50px;
             padding-top: 12px;
             width: 100%;
             height: auto;
             vertical-align: middle;
+        }
+
+        .honey {
+            width: 30px;
+            height: 30px;
         }
 
         .mobile-menu {
@@ -104,29 +106,28 @@
         <ul class="category_list">
             <li class=""><a class="link_sub_item" href="/">산 정보 검색</a></li>
             <li class=""><a class="link_sub_item" href="/course">코스 찾기</a></li>
-            <li class=""><a class="link_sub_item" href="/tip">등린이 꿀팁 모음</a></li>
+            <li class=""><a class="link_sub_item" href="/category/3">등린이 꿀팁 모음</a></li>
         </ul>
     </nav>
 </div>
 
 <div class="container" style="max-width: 600px;">
-    <img src="https://health.chosun.com/site/data/img_dir/2019/04/30/2019043001641_0.jpg"
+    <img src="https://static.guideadvisor.com/wp-content/uploads/2015/01/beginner-hiking-5.jpg"
          class="img-fluid" alt="등산의 모든 것 메인페이지">
     <div class="info">
         <h1>등산의 모든 것</h1>
-        <p>가고 싶은 산의 기본 정보와 주변 맛집 등의 정보를 알려드려요.</p>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">산 이름</span>
-            </div>
-            <input type="text" class="form-control" id="mtName" placeholder="산 이름을 입력해주세요.">
-        </div>
-        <div class="find">
-            <button onclick="findMountain()" type="button" class="btn btn-primary">검색</button>
-        </div>
+        <p> 등린이들을 위한 꿀팁을 모아봤어요!</p>
+        <hr>
+    </div>
+    <div>
+        <img class=honey src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f36f.svg"
+             alt="honey">
+        등산배우기
     </div>
 </div>
+</div>
 </body>
+
 <script type="text/javascript">
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -166,39 +167,5 @@
         });
     });
 
-
-    function findMountain() {
-        // 1. 산 이름을 가져옵니다.
-        let name = $('#mtName').val()
-        // 2. 산 이름을 입력하지 않았을 경우 alert를 띄웁니다.
-        if (name === '') {
-            alert('산 이름을 입력해주세요')
-            return
-        }
-        $.ajax({
-            type: "GET", // 산을 조회하는 요청이기에 POST -> GET으로 변경
-            url: "/find_mt",
-            data: {
-                'name': name
-            },
-            success: function (response) {
-                if (response["result"] === "success") {
-                    let rows = response["data"];
-                    if (rows.length > 1) {
-                        // 검색 결과가 여러개인 경우 /search 페이지로 이동합니다.
-                        location.href = `/search?name=${name}`
-                    } else if (rows.length === 1) {
-                        // 검색 결과가 1개인 경우 /result 페이지로 이동합니다.
-                        let mountain = rows[0]
-                        let code = mountain['mntnid']
-                        location.href = `/result?name=${name}&code=${code}`
-                    } else {
-                        // 해당하는 산이 없는 경우
-                        alert('검색 결과가 없습니다')
-                    }
-                }
-            }
-        })
-    }
 </script>
 </html>

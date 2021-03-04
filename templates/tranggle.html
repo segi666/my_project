@@ -59,6 +59,7 @@
         }
 
         .table {
+            display: none;
             table-layout: fixed;
             text-align: center;
             width: 100%
@@ -199,7 +200,9 @@
 </div>
 </body>
 <script type="text/javascript">
-
+    $(document).ready(function () {
+        $('.table').hide()
+    })
     document.addEventListener('DOMContentLoaded', function () {
         document.querySelector(".mobile-menu").addEventListener("click", function (e) {
             if (document.querySelector('.menuwrap').classList.contains('on')) {
@@ -238,6 +241,7 @@
     });
 
     function findCourse() {
+        $('.table').show()
         // 1. 사용자가 입력한 검색 정보를 불러옵니다.
         let name = $('#mtName').val()
         let year = $('#year').val()
