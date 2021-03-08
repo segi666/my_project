@@ -59,9 +59,9 @@
         #equip1 {
             display: none;
             margin-top: 5px;
-            margin-left: 25px;
+            margin-left: 15px;
             padding: 10px 20px;
-            width: 90%;
+            width: 95%;
             height: auto;
             background-color: lightgray;
         }
@@ -111,6 +111,7 @@
             background-color: rgba(0, 0, 0, 0.5);
         }
 
+
     </style>
 </head>
 <body>
@@ -127,40 +128,44 @@
     </nav>
 </div>
 <div class="container">
+    <div id="navigation">
+        <a href="#category1">등산화 선택하기</a>｜<a href="#category2">자연에 대한 기본예의</a>
+    </div>
     <hr>
     <div id="category1">
-        <h5>장비 준비하기</h5>
+        <h5>등산화 선택하기</h5>
         <div class="contents">
+            <h6><span class="title">1. 5~10mm 정도 큰 것 구입</span></h6>
             <div class="paragraph">
-                등산장비는 부피가 작고 가벼우며 사용하기가 편리해야 한다. 등산장비는 꼭 필요한 장비만 구입한다.
+                소비자들이 등산화에 불편을 가장 많이 호소하는 것은 발가락이 앞부리에 닿아 고통을 호소하는 경우와
+                발바닥의 통증, 무릎 통증, 등산화 무게와 부드러움에 대한 불평 등이다.
             </div>
+            <h6><span class="title">2. 엄지발가락 부위에서 꺽이는 것을 구입</span></h6>
+            <div class="paragraph">
+                구입시 신발을 신고 뒷꿈치를 들어 엄지발가락 부위에서 등산화가 꺽이는 것을 선택하며 이때 발등부위를 누르지 않는지 확인한다.
+                발등이 구부러지면 발이 아파 장시간 워킹을 불가능하게 한다.
+            </div>
+            <h6><span class="title">3. 창이 너무 단단하지 않은 것을 고른다</span></h6>
+            <div class="paragraph">
+                창이 부드러운 것은 미끄러지지 않는 반면 단단한 것은 내마모성은 강하나 미끄러지기 쉽다.
+                특히 서울의 산은 바위로 이뤄져 있기 때문에 부드러운 창을 선택한다.
+            </div>
+            <h6><span class="title">4. 창의 두께는 두툼한 것이 좋다</span></h6>
+            <div class="paragraph">
+                창의 두께는 산행의 피로를 줄이는데 중요한 역할을 한다.
+                너무 얇으면 쉬이 피로해지고 장시간 걸으면 무릎에 무리가 온다.
+                구입시 신어 보아 탄력이 없으면 중창이나 깔창을 깔아 두께를 보완 한 후 사용하면 좋다.
+            </div>
+
+
             <div class="equipments">
                 <img id="toggle1" onclick="toggle1()" src="{{ url_for('static', filename='dama_g.gif') }}" width="20"
-                     height="30"> 등산화 선택요령
+                     height="30"> 더 알아보기
                 <div class="moreInfo">
                     <div id="equip1">
-                        <pr>소비자들이 등산화에 불편을 가장 많이 호소하는 것은 발가락이 앞부리에 닿아 고통을 호소하는 경우와
-                            발바닥의 통증, 무릎 통증, 등산화 무게와 부드러움에 대한 불평 등이다.
-                        </pr>
-
-                        <pr>1. 5~10mm 정도 큰 것 구입 <br>
-                            등산 양말이 두껍고, 딱맞게 신으면 내리막에서 앞코에 발가락이 닿아 통증을 유발 할 수 있기 때문에 운동화보다 살짝 크게 신는 것이 좋다.
-                            어떤 제품은 정사이즈보다 크게 제작되므로, 리뷰를 참고하거나 직접 가서 신어보고 사는게 가장 좋다.
-                        </pr>
-
-                        <pr>2. 엄지발가락 부위에서 꺽이는 것을 구입 <br>
-                            구입시 신발을 신고 뒷꿈치를 들어 엄지발가락 부위에서 등산화가 꺽이는 것을 선택하며 이때 발등부위를 누르지 않는지 확인한다.
-                            발등이 구부러지면 발이 아파 장시간 워킹을 불가능하게 한다.
-                        </pr>
-
-                        3. 창이 너무 단단하지 않은 것을 고른다
-                        창이 부드러운 것은 미끄러지지 않는 반면 단단한 것은 내마모성은 강하나 미끄러지기 쉽다.
-                        특히 서울의 산은 바위로 이뤄져 있기 때문에 부드러운 창을 선택한다.
-
-                        4. 창의 두께는 두툼한 것이 좋다
-                        창의 두께는 산행의 피로를 줄이는데 중요한 역할을 한다.
-                        너무 얇으면 쉬이 피로해지고 장시간 걸으면 무릎에 무리가 온다.
-                        구입시 신어 보아 탄력이 없으면 중창이나 깔창을 깔아 두께를 보완 한 후 사용하면 좋다.
+                        <iframe width="100%" height="auto" src="https://www.youtube.com/embed/oECVZYM8GmE" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -168,9 +173,45 @@
     </div>
 </div>
 
-<img id="toggle2" onclick="toggle2()" src="{{ url_for('static', filename='dama_g.gif') }}" width="20"
-     height="30">
-더 알아보기2
+<div id="category2">
+        <h5>등산복, 장비 선택하기</h5>
+        <div class="contents">
+            <h6><span class="title">1. 5~10mm 정도 큰 것 구입</span></h6>
+            <div class="paragraph">
+                소비자들이 등산화에 불편을 가장 많이 호소하는 것은 발가락이 앞부리에 닿아 고통을 호소하는 경우와
+                발바닥의 통증, 무릎 통증, 등산화 무게와 부드러움에 대한 불평 등이다.
+            </div>
+            <h6><span class="title">2. 엄지발가락 부위에서 꺽이는 것을 구입</span></h6>
+            <div class="paragraph">
+                구입시 신발을 신고 뒷꿈치를 들어 엄지발가락 부위에서 등산화가 꺽이는 것을 선택하며 이때 발등부위를 누르지 않는지 확인한다.
+                발등이 구부러지면 발이 아파 장시간 워킹을 불가능하게 한다.
+            </div>
+            <h6><span class="title">3. 창이 너무 단단하지 않은 것을 고른다</span></h6>
+            <div class="paragraph">
+                창이 부드러운 것은 미끄러지지 않는 반면 단단한 것은 내마모성은 강하나 미끄러지기 쉽다.
+                특히 서울의 산은 바위로 이뤄져 있기 때문에 부드러운 창을 선택한다.
+            </div>
+            <h6><span class="title">4. 창의 두께는 두툼한 것이 좋다</span></h6>
+            <div class="paragraph">
+                창의 두께는 산행의 피로를 줄이는데 중요한 역할을 한다.
+                너무 얇으면 쉬이 피로해지고 장시간 걸으면 무릎에 무리가 온다.
+                구입시 신어 보아 탄력이 없으면 중창이나 깔창을 깔아 두께를 보완 한 후 사용하면 좋다.
+            </div>
+
+
+            <div class="equipments">
+                <img id="toggle1" onclick="toggle1()" src="{{ url_for('static', filename='dama_g.gif') }}" width="20"
+                     height="30"> 더 알아보기
+                <div class="moreInfo">
+                    <div id="equip1">
+                        <iframe width="100%" height="auto" src="https://www.youtube.com/embed/oECVZYM8GmE" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 

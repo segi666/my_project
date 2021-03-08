@@ -31,6 +31,11 @@ def result():
 def course():  # 함수명 수정 - 이름만 보고 접속되는 페이지를 확인할 수 있게!
     return render_template('tranggle.html')
 
+@app.route('/course/map')
+def course2():  # 함수명 수정 - 이름만 보고 접속되는 페이지를 확인할 수 있게!
+    track_key = request.args.get('track_key')
+    return render_template('tranggle_map.html', track_key=track_key)
+
 @app.route('/tip')
 def tip():  # 함수명 수정 - 이름만 보고 접속되는 페이지를 확인할 수 있게!
     return render_template('tip.html')
