@@ -161,12 +161,12 @@
                 <option>2012</option>
                 <option>2011</option>
             </select>
-            <select id="category" class="custom-select">
-                <option selected value="">전체</option>
-                <option value="WALKING">걷기</option>
-                <option value="HIKING">등산</option>
-                <option value="ETC">기타</option>
-            </select>
+<!--            <select id="category" class="custom-select">-->
+<!--                <option selected value="">전체</option>-->
+<!--                <option value="WALKING">걷기</option>-->
+<!--                <option value="HIKING">등산</option>-->
+<!--                <option value="ETC">기타</option>-->
+<!--            </select>-->
             <select id="sort" class="custom-select">
                 <option selected value="log_no">최신순</option>
                 <option value="log_download_count">인기순</option>
@@ -188,6 +188,7 @@
                 <thead>
                 <tr>
                     <th width="57%" scope="col">트랙명</th>
+<!--                    <th width="17%" scope="col">분류</th>-->
                     <th width="20%" scope="col">거리</th>
                     <th width="23%" scope="col">소요시간</th>
                 </tr>
@@ -241,11 +242,11 @@
     });
 
     function findCourse() {
-        $('.table').show()
+        $('.course_info').empty()
         // 1. 사용자가 입력한 검색 정보를 불러옵니다.
         let name = $('#mtName').val()
         let year = $('#year').val()
-        let category = $('#category').val()
+        // let category = $('#category').val()
         let sort = $('#sort').val()
         // 2. 코스명을 입력하지 않았을 경우 alert를 띄웁니다.
         if (name === '') {
@@ -258,7 +259,7 @@
             data: {
                 'year': year,
                 'search_key': 'track_title',
-                'category': category,
+                'category': 'HIKING',
                 'search_val': name,
                 'sort': sort,
                 'page': 1,
@@ -274,9 +275,9 @@
                 let rows = data['content']
                 for (let i = 0; i < rows.length; i++) {
                     let row = rows[i]
-                    let trackName = row['track_name']
-                    // let trackName2 = $(trackName).split('20')[0]
+                    let trackName = row['track_name'].split('.gpx')[0].replace(/[_]/gi, ' ')
                     let distance = row['log_distance']
+                    // let category = row['category_ko']
                     let time = row['log_total_time'] * 60
                     let hours = Math.floor(time / 3600)
                     let minutes = Math.floor((time - (hours * 3600)) / 60);
@@ -293,7 +294,7 @@
                     let totalTime = hours + ':' + minutes + ':' + seconds
                     let trackKey = row['year'] + row['track_key']
                     let temp = ` <tr>
-                                     <th width="57%" scope="row">
+                                     <th width="40%" scope="row">
                                          <a href="https://www.tranggle.com/trackeditor/use_track_view?track_key=${trackKey}" class="course">
                                             <div>${trackName}
                                             </div>
@@ -302,7 +303,8 @@
                                      <td width="20%">${distance}km</td>
                                      <td width="23%">${totalTime}</td>
                                  </tr>`
-                    $('.result').append(temp)
+                    $('.table').show()
+                    $('.course_info').append(temp)
                 }
             }
         })
