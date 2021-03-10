@@ -53,68 +53,11 @@
             width: 90%;
             height: auto;
         }
-
-        .mobile-menu {
-            display: block;
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            z-index: 500;
-            width: 30px;
-            height: 30px;
-            padding: 3px;
-            background-color: #f0f0f0;
-            border: 0;
-        }
-
-        .mobile-menu i {
-            font-size: 1.5em;
-        }
-
-        .menuwrap {
-            position: fixed;
-            top: 0;
-            left: -202px; /* 너비 300px 인 사이드바를 왼쪽으로 300px 이동시켜 화면에 보이지 않게 함 */
-            z-index: 400;
-            overflow: auto;
-            width: 200px; /* 너비 */
-            height: 100%;
-            padding: 80px 5px;
-            box-sizing: border-box;
-            transition: left .3s ease-in-out; /* 0.3초 동안 이동 애니메이션 */
-            background-color: #f0f0f0;
-        }
-
-        .menuwrap.on {
-            left: 0;
-        }
-
-        #dimmed {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 300;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
     </style>
 
 </head>
 <body>
-<button type="button" class="mobile-menu"><i class="fas fa-bars"></i></button>
-
-<div class="menuwrap">
-    <nav id="menu">
-        <!-- "메뉴목록 표시" -->
-        <ul class="category_list">
-            <li class=""><a class="link_sub_item" href="/">산 정보 검색</a></li>
-            <li class=""><a class="link_sub_item" href="/course">코스 찾기</a></li>
-            <li class=""><a class="link_sub_item" href="/tip">등린이 꿀팁 모음</a></li>
-        </ul>
-    </nav>
-</div>
+{% include 'menubar.html' %}
 
 <div class="container" style="max-width: 600px;">
     <img src="https://static.guideadvisor.com/wp-content/uploads/2015/01/beginner-hiking-5.jpg"
@@ -132,70 +75,14 @@
 
         <img class=honey src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f36f.svg"
              alt="honey">
-        <a href="/tip/equipment">등산 장비</a>
-        <ul>등산에도 장비빨(?)은 필수죠!</ul>
-
-        <img class=honey src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f36f.svg"
-             alt="honey">
-        <a href="/tip/ready">등산 준비</a>
-        <ul>무엇을, 어떻게 준비해야할지 막막하시죠?</ul>
-
-        <img class=honey src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f36f.svg"
-             alt="honey">
-        <a href="/tip/pick">산행지 선택</a>
-        <ul>내게 찰떡 같은 산행지 고르는 법</ul>
+        <a href="/tip/equipment">등산 준비</a>
+        <ul>등산 장비 및 준비물 챙기는 법</ul>
 
         <img class=honey src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f36f.svg"
              alt="honey">
         <a href="/tip/start">산행 시작</a>
         <ul>스트레칭부터 휴식까지 산행 노하우 A to Z</ul>
-
-        <img class=honey src="https://notion-emojis.s3-us-west-2.amazonaws.com/v0/svg-twitter/1f36f.svg"
-             alt="honey">
-        <a href="/tip/safety">안전 산행</a>
-        <ul>안 다치고, 안 아픈게 최고죠.</ul>
     </div>
 </div>
 </body>
-
-<script type="text/javascript">
-
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelector(".mobile-menu").addEventListener("click", function (e) {
-            if (document.querySelector('.menuwrap').classList.contains('on')) {
-                //메뉴닫힘
-                document.querySelector('.menuwrap').classList.remove('on');
-                document.querySelector('.mobile-menu i').classList.remove('fa-times')
-                document.querySelector('.mobile-menu i').classList.add('fa-bars');
-
-                //페이지 스크롤 락 해제
-                document.querySelector('#dimmed').remove();
-            } else {
-                //메뉴펼침
-                document.querySelector('.menuwrap').classList.add('on');
-                document.querySelector('.mobile-menu i').classList.remove('fa-bars');
-                document.querySelector('.mobile-menu i').classList.add('fa-times');
-
-                //페이지 스크롤 락 레이어 추가
-                let div = document.createElement('div');
-                div.id = 'dimmed';
-                document.body.append(div);
-
-                //페이지 스크롤 락  모바일 이벤트 차단
-                document.querySelector('#dimmed').addEventListener('scroll touchmove touchend mousewheel', function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    return false;
-                });
-
-                //페이지 스크롤 락 레이어 클릭 메뉴 닫기
-                document.querySelector('#dimmed').addEventListener('click', function (e) {
-                    document.querySelector(".mobile-menu").click();
-                });
-
-            }
-        });
-    });
-
-</script>
 </html>

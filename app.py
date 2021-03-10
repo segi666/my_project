@@ -48,21 +48,9 @@ def etiquette():  # 함수명 수정 - 이름만 보고 접속되는 페이지�
 def equipment():  # 함수명 수정 - 이름만 보고 접속되는 페이지를 확인할 수 있게!
     return render_template('equipment.html')
 
-@app.route('/tip/ready')
-def ready():  # 함수명 수정 - 이름만 보고 접속되는 페이지를 확인할 수 있게!
-    return render_template('ready.html')
-
-@app.route('/tip/pick')
-def pick():  # 함수명 수정 - 이름만 보고 접속되는 페이지를 확인할 수 있게!
-    return render_template('pick.html')
-
 @app.route('/tip/start')
 def start():  # 함수명 수정 - 이름만 보고 접속되는 페이지를 확인할 수 있게!
     return render_template('start.html')
-
-@app.route('/tip/safety')
-def safety():  # 함수명 수정 - 이름만 보고 접속되는 페이지를 확인할 수 있게!
-    return render_template('safety.html')
 
 # 산 name으로 산 정보 검색
 @app.route('/find_mt', methods=['GET'])

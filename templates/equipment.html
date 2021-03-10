@@ -26,9 +26,8 @@
         }
 
         .container {
-            margin-top: 80px;
-            margin-bottom: 80px;
-            margin-left: 20px;
+            margin: 80px auto;
+            max-width: 600px;
         }
 
         h5 {
@@ -40,7 +39,7 @@
         .contents {
             margin-top: 20px;
             margin-left: 10px;
-            width: 90%;
+            width: 95%;
             height: auto;
         }
 
@@ -53,88 +52,87 @@
         }
 
         .equipments {
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .toggleImg {
+            display: block;
+            margin-right: auto;
+            margin-left: auto;
+            width: 100%;
+            height: auto;
+        }
+
+        .toggleParagraph {
+            padding: 10px;
+        }
+
+        .contentsImg {
+            display: block;
+            width: 95%;
+            height: auto;
+            margin-right: auto;
+            margin-left: auto;
         }
 
         #equip1 {
             display: none;
-            margin-top: 5px;
-            margin-left: 15px;
-            padding: 10px 20px;
-            width: 95%;
+            margin-top: 10px;
+            padding: 10px;
+            width: 100%;
             height: auto;
             background-color: lightgray;
         }
 
-        .mobile-menu {
-            display: block;
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            z-index: 500;
-            width: 30px;
-            height: 30px;
-            padding: 3px;
-            background-color: #f0f0f0;
-            border: 0;
+        #equip2 {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            width: 100%;
+            height: auto;
+            background-color: lightgray;
         }
 
-        .mobile-menu i {
-            font-size: 1.5em;
-        }
-
-        .menuwrap {
-            position: fixed;
-            top: 0;
-            left: -202px; /* 너비 300px 인 사이드바를 왼쪽으로 300px 이동시켜 화면에 보이지 않게 함 */
-            z-index: 400;
-            overflow: auto;
-            width: 200px; /* 너비 */
-            height: 100%;
-            padding: 80px 5px;
-            box-sizing: border-box;
-            transition: left .3s ease-in-out; /* 0.3초 동안 이동 애니메이션 */
-            background-color: #f0f0f0;
-        }
-
-        .menuwrap.on {
-            left: 0;
-        }
-
-        #dimmed {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 300;
+        #equip3 {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: lightgray;
         }
 
+        #equip4 {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            width: 100%;
+            height: 100%;
+            background-color: lightgray;
+        }
 
+        #navigation {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 80%;
+            position: sticky;
+            top: 0;
+        }
     </style>
 </head>
 <body>
-<button type="button" class="mobile-menu"><i class="fas fa-bars"></i></button>
-
-<div class="menuwrap">
-    <nav id="menu">
-        <!-- "메뉴목록 표시" -->
-        <ul class="category_list">
-            <li class=""><a class="link_sub_item" href="/">산 정보 검색</a></li>
-            <li class=""><a class="link_sub_item" href="/course">코스 찾기</a></li>
-            <li class=""><a class="link_sub_item" href="/tip">등린이 꿀팁 모음</a></li>
-        </ul>
-    </nav>
-</div>
+{% include 'menubar.html' %}
 <div class="container">
     <div id="navigation">
-        <a href="#category1">등산화 선택하기</a>｜<a href="#category2">자연에 대한 기본예의</a>
+        <a href="#category1">등산화 선택하기</a>｜<a href="#category2">등산복</a>｜<a href="#category3">등산 배낭</a>｜<a
+            href="#category4">준비물</a>
     </div>
     <hr>
     <div id="category1">
         <h5>등산화 선택하기</h5>
         <div class="contents">
+            <img class="contentsImg" src="{{ url_for('static', filename='shoes.JPG') }}" alt="등산화 종류">
             <h6><span class="title">1. 5~10mm 정도 큰 것 구입</span></h6>
             <div class="paragraph">
                 소비자들이 등산화에 불편을 가장 많이 호소하는 것은 발가락이 앞부리에 닿아 고통을 호소하는 경우와
@@ -157,102 +155,167 @@
                 구입시 신어 보아 탄력이 없으면 중창이나 깔창을 깔아 두께를 보완 한 후 사용하면 좋다.
             </div>
 
-
             <div class="equipments">
                 <img id="toggle1" onclick="toggle1()" src="{{ url_for('static', filename='dama_g.gif') }}" width="20"
-                     height="30"> 더 알아보기
+                     height="30"> 등산화 선택하기(영상)
                 <div class="moreInfo">
                     <div id="equip1">
-                        <iframe width="100%" height="auto" src="https://www.youtube.com/embed/oECVZYM8GmE" frameborder="0"
+                        <iframe width="100%" height="auto" src="https://www.youtube.com/embed/oECVZYM8GmE"
+                                frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen></iframe>
                     </div>
                 </div>
+            </div>
+            <div class="equipments">
+                <img id="toggle2" onclick="toggle2()" src="{{ url_for('static', filename='dama_g.gif') }}" width="20"
+                     height="30"> 등산화 끈 묶는 법
+                <div class="moreInfo">
+                    <div id="equip2">
+                        <div class="toggleParagraph">
+                            <img class="toggleImg" src="{{url_for('static', filename='tieknot.JPG')}}" alt="끈 묶는법">
+                            1. 윗고리끈을 위에서 아래로 꺽어 세게 고정한다.<br><br>
+                            <img class="toggleImg" src="{{url_for('static', filename='tieknot3.JPG')}}" alt="끈 묶는법">
+                            2. 등산 시에는, 조금 느슨하게 묶어야 발목이 굽혀지는데 방해를 덜 받는다.
+                            반대로 하산 시에는, 바싹 당겨 묶어야 내리막에서 발이 등산화 안에서 밀리지 않는다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="equipments">
+                <img id="toggle4" onclick="toggle4()" src="{{ url_for('static', filename='dama_g.gif') }}" width="20"
+                     height="30"> 등산화 밑창 종류
+                <div class="moreInfo">
+                    <div id="equip4">
+                        <div class="toggleParagraph">
+                            <img class="toggleImg" src="{{url_for('static', filename='sole1.JPG')}}" alt="끈 묶는법">
+                            * 접지력이 좋다는 것은 고무가 딱딱하지 않고, 말랑하다는 뜻.
+                            고무의 유연성을 높여 지면을 움켜쥐는 접지면을 최대한 확보해야되기 때문임.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="category2">
+        <h5>등산복</h5>
+        <div class="contents">
+            <h6><span class="title">1. 등산복 고르는 법</span></h6>
+            <div class="paragraph">
+                겨우 우리나라 산 타면서 무슨 등산복을 입어? 라고 얘기하는 이들이 있다.
+                하지만 우리나라의 산은 계절별 기온 차이와 강수량 차이가 매우 크고 기상 변화가 잦다.
+                때문에, 등산복은 사치가 아닌 꼭 필요한 장비이다. 아래 기준으로 선택해보자!<br><br>
+                <li> 땀이 빠르게 마르는 소재</li>
+                <li> 행동하는데 불편이 없는 옷</li>
+                <li> 천이 질기고 튼튼한 옷</li>
+                <li> 가볍고 보온이 잘 되는 옷</li>
+                <li> 방수성과 통기성이 좋은 옷</li>
+            </div>
+            <div class="equipments">
+                <img id="toggle3" onclick="toggle3()" src="{{ url_for('static', filename='dama_g.gif') }}" width="20"
+                     height="30"> 계절별 등산복 입는 방법
+                <div class="moreInfo">
+                    <div id="equip3">
+                        <img class="toggleImg" src="{{url_for('static', filename='seasonwear.png')}}" alt="계절별 등산복 입는법">
+                        <!--                        <div class="toggleParagraph">-->
+                        <!--                            <br>-->
+                        <!--                            발목 부위가 높은 미들컷 이상의 등산화는 오르막에선 조금 느슨하게 묶어야 발목이 굽혀지는데 방해를 덜 받는다.<br>-->
+                        <!--                            반대로 하산길에선 바싹 당겨 묶어야 내리막에서 발이 등산화 안에서 밀리지 않는다.-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h6><span class="title">2. 겹쳐 입기(레이어링)</span></h6>
+        <img class="contentsImg" src="{{ url_for('static', filename='layering.JPG') }}" alt="레이어링 하는법 ">
+        <div class="paragraph">
+            <br margin-top="1px">
+            속옷, 보온옷, 겉옷 세가지 종류의 등산복을 겹쳐 있는 것을 레이어링이라고 한다.
+            <br><br>
+            <li> 속옷 : 촉감 좋고, 땀이 잘마르는 기능성 옷<br>&nbsp&nbspex) 베이스레이어</li>
+            <li> 보온옷 : 보온기능은 뛰어나지만 비바람에는 약한 옷<br>&nbsp&nbspex) 플리스재킷, 다운재킷</li>
+            <li> 겉옷 : 비·바람을 막아주고, 입고 벗기가 편한 옷옷 <br>&nbsp&nbspex) 바람막이</li>
+        </div>
+    </div>
+    <div id="category3">
+        <h5>등산 배낭</h5>
+        <div class="contents">
+            <h6><span class="title">1. 등산 배낭 고르는 법</span></h6>
+            <img class="contentsImg" src="{{ url_for('static', filename='bag1.JPG') }}" alt="등산배낭 ">
+            <span style="color: gray">△ 산행 목적에 따른 배낭 종류</span>
+            <div class="paragraph">
+                <br margin-top="1px">
+                <div class="paragraph">
+                    20-25L 배낭은 당일 산행용으로 적합하긴 하지만, 배낭이 너무 작으면 짐을 하나 뺄 때마다
+                    내용물을 다 꺼내야 하는 등 불편이 많다. 또 산행 횟수가 늘어나면 처음 생각과 달리 내용물이 늘어난다.
+                    따라서 <u>30-40리터 배낭</u>을 추천한다.
+                    <br><br>
+                    <li> 토르소(목부터 골반까지) 길이에 맞출 것</li>
+                    <li> 목은 고개를 앞으로 숙였을 때 톡 튀어나는 뼈</li>
+                    <li> 골반은 등을 만졌을 때 골반과 척추 교차지점</li>
+                    <li> S:41~47cm, M:45~52cm, L:51~57cm</li>
+                </div>
+            </div>
+
+            <h6><span class="title">2. 등산 배낭 사용법</span></h6>
+            <img class="contentsImg" src="{{ url_for('static', filename='howtowearbag1.JPG') }}" alt="등산 배낭 매는법 ">
+            <img class="contentsImg" src="{{ url_for('static', filename='howtowearbag2.JPG') }}" alt="등산 배낭 매는법 ">
+            <span style="color: gray">△ 배낭을 맬 때는 ⓘ먼저 허리벨트를 조이고, ②어깨끈을 당기고,
+                ③상단의 조절끈을 당겨 등에 배낭을 밀착시키고, ④마지막으로 가슴벨트를 연결한다.
+                ⑤ 다리를 90도로 올렸을 때 허리벨트의 하단과 수평이 되어야 올바르게 착용한 것!</span>
+            <br margin-top="1px">
+            <div class="paragraph">
+                <br>
+                <li> 조임 끈을 다 푼 상태에서 배낭을 꾸릴 것</li>
+                <li> 가벼운 것을 아래로, 무거운 짐을 위에 넣을 것</li>
+                <li> 부드러운 물건을 등쪽에 넣어 피로를 줄일 것</li>
+                <li> 무게가 대칭이 되도록 할 것</li>
+                <li> 산행 중 바로 꺼내 쓰는 장비는 배낭헤드에 넣을 것</li>
+                <li> 옷/식량은 비닐 등에 담아 분리해서 보관할 것</li>
+                <li> 배낭지퍼를 10시나 2시 방향으로 닫을 것</li>
+            </div>
+        </div>
+    </div>
+    <div id="category4">
+        <h5>준비물</h5>
+        <div class="contents">
+            <h6><span class="title">1. 겨울 산행 준비물</span></h6>
+            <div class="paragraph">
+                <li> 등산화 : 산행 전 왁스를 발라 눈밭에 젖지 않게 함</li>
+                <li> 배낭 : 당일산행 - 35L이상, 1박이상 - 80L이상</li>
+                <li> 스패츠 : 방수투습성 원단, 당김끈 장식 내구성 확인</li>
+                <li> 아이젠 : 체인수 많은 것, 벨크로 달려있는게 편함</li>
+                <li> 등산스틱 : 접이식이 휴대 편함</li>
+                <li> 보온병 : 혹한에 온도 유지에 좋음</li>
+                <li> 물 : 넉넉히 준비, 조금씩 천천히 마실 것</li>
+                <li> 행동식 : 양갱, 단팥빵, 초코바, 육포 등 추천</li>
+                <li> 다용도칼</li>
+                <li> 선글라스, 고글 : 눈에 비친 반사광 차단</li>
+                <li> 시계 : 방수, 야광 필수, 고도계 겸용이면 더욱 좋음</li>
+                <li> 내의 : 면직은 절대 금물, 기능성 베이스레이어 추천</li>
+                <li> 양말 : 모직양말 2켤레 이상 필수</li>
+                <li> 모자 : 귀가 눈을 덮을 수 있는 발라클라바 형태 추천</li>
+                <li> 장갑 : 기능별 3켤레 준비(얇은, 두터운, 오버글러브)</li>
+                <li> 바지 : 모직바지 또는 두터운 합성섬유 원단 바지 추천</li>
+                <li> 바람막이 : 방수투습성 원단 추천</li>
+                <li> 우모복 : 후리스, 다운패딩류 추천</li>
+            </div>
+            <h6><span class="title">2. 야영 시 추가 준비물</span></h6>
+            <div class="paragraph">
+                <li> 침낭 : 최소 1kg 이상 다운함량 들어있는 것 준비</li>
+                <li> 에어매트 : 동계용, 키보다 조금 긴 것으로 구입</li>
+                <li> 텐트 : 양방이 트이지 않은 것, 플라이에 밑단을 낸 것</li>
+                <li> 헤드랜턴 : 산행전 작동여부 확인 필수</li>
+                <li> 코펠 : 산행 인원수에 맞게 챙길 것</li>
+                <li> 버너, 연료통, 바람막이</li>
             </div>
         </div>
     </div>
 </div>
 
-<div id="category2">
-        <h5>등산복, 장비 선택하기</h5>
-        <div class="contents">
-            <h6><span class="title">1. 5~10mm 정도 큰 것 구입</span></h6>
-            <div class="paragraph">
-                소비자들이 등산화에 불편을 가장 많이 호소하는 것은 발가락이 앞부리에 닿아 고통을 호소하는 경우와
-                발바닥의 통증, 무릎 통증, 등산화 무게와 부드러움에 대한 불평 등이다.
-            </div>
-            <h6><span class="title">2. 엄지발가락 부위에서 꺽이는 것을 구입</span></h6>
-            <div class="paragraph">
-                구입시 신발을 신고 뒷꿈치를 들어 엄지발가락 부위에서 등산화가 꺽이는 것을 선택하며 이때 발등부위를 누르지 않는지 확인한다.
-                발등이 구부러지면 발이 아파 장시간 워킹을 불가능하게 한다.
-            </div>
-            <h6><span class="title">3. 창이 너무 단단하지 않은 것을 고른다</span></h6>
-            <div class="paragraph">
-                창이 부드러운 것은 미끄러지지 않는 반면 단단한 것은 내마모성은 강하나 미끄러지기 쉽다.
-                특히 서울의 산은 바위로 이뤄져 있기 때문에 부드러운 창을 선택한다.
-            </div>
-            <h6><span class="title">4. 창의 두께는 두툼한 것이 좋다</span></h6>
-            <div class="paragraph">
-                창의 두께는 산행의 피로를 줄이는데 중요한 역할을 한다.
-                너무 얇으면 쉬이 피로해지고 장시간 걸으면 무릎에 무리가 온다.
-                구입시 신어 보아 탄력이 없으면 중창이나 깔창을 깔아 두께를 보완 한 후 사용하면 좋다.
-            </div>
-
-
-            <div class="equipments">
-                <img id="toggle1" onclick="toggle1()" src="{{ url_for('static', filename='dama_g.gif') }}" width="20"
-                     height="30"> 더 알아보기
-                <div class="moreInfo">
-                    <div id="equip1">
-                        <iframe width="100%" height="auto" src="https://www.youtube.com/embed/oECVZYM8GmE" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </body>
 
 <script type="text/javascript">
-
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelector(".mobile-menu").addEventListener("click", function (e) {
-            if (document.querySelector('.menuwrap').classList.contains('on')) {
-                //메뉴닫힘
-                document.querySelector('.menuwrap').classList.remove('on');
-                document.querySelector('.mobile-menu i').classList.remove('fa-times')
-                document.querySelector('.mobile-menu i').classList.add('fa-bars');
-
-                //페이지 스크롤 락 해제
-                document.querySelector('#dimmed').remove();
-            } else {
-                //메뉴펼침
-                document.querySelector('.menuwrap').classList.add('on');
-                document.querySelector('.mobile-menu i').classList.remove('fa-bars');
-                document.querySelector('.mobile-menu i').classList.add('fa-times');
-
-                //페이지 스크롤 락 레이어 추가
-                let div = document.createElement('div');
-                div.id = 'dimmed';
-                document.body.append(div);
-
-                //페이지 스크롤 락  모바일 이벤트 차단
-                document.querySelector('#dimmed').addEventListener('scroll touchmove touchend mousewheel', function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    return false;
-                });
-
-                //페이지 스크롤 락 레이어 클릭 메뉴 닫기
-                document.querySelector('#dimmed').addEventListener('click', function (e) {
-                    document.querySelector(".mobile-menu").click();
-                });
-
-            }
-        });
-    });
 
     function toggle1() {
         let toggle = document.getElementById('toggle1');
@@ -267,6 +330,49 @@
             $('#equip1').hide();
         }
     }
+
+    function toggle2() {
+        let toggle = document.getElementById('toggle2');
+        if (toggle.src.match("dama_y")) {
+            toggle.src = "{{ url_for('static', filename='dama_g.gif') }}";
+        } else {
+            toggle.src = "{{ url_for('static', filename='dama_y.gif') }}";
+        }
+        if ($("#equip2").css("display") == "none") {
+            $("#equip2").show()
+        } else {
+            $('#equip2').hide();
+        }
+    }
+
+    function toggle3() {
+        let toggle = document.getElementById('toggle3');
+        if (toggle.src.match("dama_y")) {
+            toggle.src = "{{ url_for('static', filename='dama_g.gif') }}";
+        } else {
+            toggle.src = "{{ url_for('static', filename='dama_y.gif') }}";
+        }
+        if ($("#equip3").css("display") == "none") {
+            $("#equip3").show()
+        } else {
+            $('#equip3').hide();
+        }
+    }
+
+    function toggle4() {
+        let toggle = document.getElementById('toggle4');
+        if (toggle.src.match("dama_y")) {
+            toggle.src = "{{ url_for('static', filename='dama_g.gif') }}";
+        } else {
+            toggle.src = "{{ url_for('static', filename='dama_y.gif') }}";
+        }
+        if ($("#equip4").css("display") == "none") {
+            $("#equip4").show()
+        } else {
+            $('#equip4').hide();
+        }
+    }
+
 </script>
 <style>
     pr {
